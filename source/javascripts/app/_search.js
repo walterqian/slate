@@ -74,6 +74,11 @@
         return r.score > 0.0001;
       });
 
+      // Add exact value and make sure it doesn't already appear in results.
+      results = results.concat(index.search(searchInput.value).filter(function(r) {
+        return r.score > 0.0001 && !results.some(function(obj) {return obj.ref == r.ref});
+      }));
+
       if (results.length) {
         searchResults.empty();
         $.each(results, function (index, result) {
